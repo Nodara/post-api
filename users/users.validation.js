@@ -8,7 +8,7 @@ const validateLogin = (req, res, next) => {
       .required(),
     password: joi.string()
       .min(8)
-      .max(20),
+      .max(40),
   });
   return checkJoiError(req, res, next, schema);
 };
@@ -29,7 +29,7 @@ const validateRegistration = (req, res, next) => {
 
     password: joi.string()
       .min(8)
-      .max(20),
+      .max(40),
 
     email: joi.string()
       .email()

@@ -1,14 +1,13 @@
 require('dotenv').config();
+require('./database');
 
 const express = require('express');
 const routes = require('./routes');
 
 const app = express();
 
-require('./database');
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(routes);
+app.use('/api', routes);
 
 app.listen(3000);

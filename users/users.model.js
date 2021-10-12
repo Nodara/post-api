@@ -34,11 +34,10 @@ class Users extends Model {
         sequelize: connection,
         tableName: 'users',
         hooks: {
-          beforeCreate: (user) => {
-            bcrypt.hash(user.password, 10).then((hash) => {
-              Users.password = hash;
-            });
-          },
+          beforeCreate: (user) => bcrypt.hash(user.password, 10).then((hash) => {
+            // eslint-disable-next-line no-param-reassign
+            user.password = hash;
+          }),
         },
       },
     );

@@ -19,20 +19,12 @@ class Posts extends Model {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      ownerId: {
+      userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      createdAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-      },
-      updatedAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-      },
     }, {
-      timestamps: false,
+      timestamps: true,
       sequelize: connection,
       tableName: 'posts',
     });

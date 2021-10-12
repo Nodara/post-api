@@ -21,8 +21,8 @@ const logInUser = async (req, res) => {
       return res.status(StatusCodes.NOT_FOUND).send('Email/Password incorrect');
     }
     // create jwt token that will be expired in 2 hours
-    const token = await createToken(user.id);
-    return res.json({ username: user.firstname, token });
+    const token = await createToken(user.id, 180);
+    return res.json({ id: user.id, token });
   } catch (error) {
     signale.error('Failed to login user ', error);
     return res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
@@ -41,7 +41,7 @@ const registerUser = async (req, res) => {
     const user = await User.findOne({ where: { email } });
 
     if (user) {
-      return res.send(StatusCodes.NOT_FOUND);
+      return res.send('AccountsalreadyExist');
     }
 
     // Create user's data
