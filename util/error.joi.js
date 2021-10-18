@@ -10,7 +10,6 @@ const checkJoiError = (req, res, next, schema, option = null) => {
   }
 
   const { message } = error.details[0];
-
   return res.status(StatusCodes.BAD_REQUEST).json(message);
 };
 

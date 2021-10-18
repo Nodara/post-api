@@ -1,8 +1,8 @@
 const signale = require('signale');
 const { Sequelize } = require('sequelize');
 const dataBaseConfig = require('../util/database');
-const Users = require('../users/users.model');
-const Posts = require('../posts/posts.model');
+const Users = require('../users/user.model');
+const Posts = require('../posts/post.model');
 
 const connection = new Sequelize(dataBaseConfig);
 

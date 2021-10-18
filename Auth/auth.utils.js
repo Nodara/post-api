@@ -5,7 +5,7 @@ const createToken = (id, minute) => jwt.sign(
     id,
   },
   process.env.TOKEN_KEY,
-  { expiresIn: `${minute}` },
+  { expiresIn: minute },
 );
 
 module.exports = {
