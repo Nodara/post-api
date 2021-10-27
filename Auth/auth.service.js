@@ -1,7 +1,5 @@
 const signale = require('signale');
 const { StatusCodes } = require('http-status-codes');
-const { createToken } = require('./auth.utils');
-
 const User = require('../users/user.model');
 
 const logInUser = async (req, res) => {
@@ -14,15 +12,14 @@ const logInUser = async (req, res) => {
     if (!user) {
       return res.status(StatusCodes.NOT_FOUND).send('Email/Password incorrect');
     }
-
     const isMatch = await user.isValidPassword(password);
 
     if (!isMatch) {
       return res.status(StatusCodes.NOT_FOUND).send('Email/Password incorrect');
     }
-    // create jwt token that will be expired in  x milliseconds
-    const token = await createToken(user.id, 1000000);
-    return res.json({ id: user.id, token });
+    req.session.user = user;
+    // eslint-disable-next-line padded-blocks
+    return res.json({ id: user.id });
   } catch (error) {
     signale.error('Failed to login user ', error);
     return res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
