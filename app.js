@@ -1,5 +1,6 @@
 require('dotenv').config();
 require('./database');
+// require('./database/redis');
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const session = require('./util/session');

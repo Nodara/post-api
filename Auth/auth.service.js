@@ -17,7 +17,7 @@ const logInUser = async (req, res) => {
     if (!isMatch) {
       return res.status(StatusCodes.NOT_FOUND).send('Email/Password incorrect');
     }
-    req.session.user = user;
+    req.session.userId = user.id;
     // eslint-disable-next-line padded-blocks
     return res.json({ id: user.id });
   } catch (error) {
@@ -54,6 +54,7 @@ const registerUser = async (req, res) => {
     return res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
   }
 };
+
 module.exports = {
   registerUser,
   logInUser,

@@ -4,7 +4,7 @@ const Post = require('./post.model');
 
 const addPost = async (req, res) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user;
     const { title, text } = req.body;
     const post = await Post.create({ title, text, userId });
     return res.json({ id: post.id });
@@ -16,7 +16,7 @@ const addPost = async (req, res) => {
 
 const showUserPosts = async (req, res) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user;
     const data = await Post.findAll({
       where: {
         userId,
@@ -32,7 +32,7 @@ const showUserPosts = async (req, res) => {
 const showPostById = async (req, res) => {
   try {
     const { id } = req.params;
-    const userId = req.user.id;
+    const userId = req.user;
     const data = await Post.findOne({ where: { id, userId } });
     // If post by that id doesnot exist
     if (!data) {
@@ -48,7 +48,7 @@ const showPostById = async (req, res) => {
 const deletePost = async (req, res) => {
   try {
     const { id } = req.params;
-    const userId = req.user.id;
+    const userId = req.user;
     const existedPost = await Post.findOne({ where: { id, userId } });
     if (existedPost) {
       await Post.destroy({ where: { id, userId } });
@@ -64,7 +64,7 @@ const deletePost = async (req, res) => {
 const updatePost = async (req, res) => {
   try {
     const { id, title, text } = req.body;
-    const userId = req.user.id;
+    const userId = req.user;
     const existedPost = await Post.findOne({ where: { id, userId } });
     if (existedPost) {
       await Post.update({ title, text }, { where: [{ id, userId }] });

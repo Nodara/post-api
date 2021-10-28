@@ -4,23 +4,21 @@ const User = require('../users/user.model');
 
 const requireAuth = async (req, res, next) => {
   try {
-    // ამოვიღოთ userId სესიიდან
-    const { user } = req.session;
+    const { userId } = req.session;
 
-    // // თუ სესიიდან userId ვერ ამოვიღეთ ან/და sessions-ობიექტში ვერ მოიძებნა სესია ამ აიდით
-    if (!user) {
+    // if session does not have userId and/or sessionId couldn't find in redis db
+    if (!userId) {
       return res.sendStatus(StatusCodes.UNAUTHORIZED);
     }
-
-    const checkUserId = await User.findOne({ where: { id: user } });
-
-    if (!checkUserId) {
+    // if user with this id exist in db
+    const user = await User.findByPk(userId);
+    if (!user) {
+      signale.success(`no Found : ${userId}`);
       return res.sendStatus(StatusCodes.NOT_FOUND);
     }
-    if (!req.session) {
-      return next();
-    }
-    return res.sendStatus(StatusCodes.UNAUTHORIZED);
+    req.user = userId;
+
+    return next();
   } catch (err) {
     signale.error('Failed in auth', err);
     return res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
