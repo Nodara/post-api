@@ -3,11 +3,8 @@ const Joi = require('joi');
 const { checkJoiError } = require('../util/error.joi');
 
 const validateUpdate = (req, res, next) => {
+  const { body } = req;
   const schema = Joi.object({
-    id: Joi.number()
-      .min(1)
-      .required(),
-
     title: Joi.string()
       .min(2)
       .max(30)
@@ -19,10 +16,11 @@ const validateUpdate = (req, res, next) => {
       .required(),
 
   });
-  return checkJoiError(req, res, next, schema);
+  return checkJoiError(res, next, body, schema);
 };
 
 const validateAddData = (req, res, next) => {
+  const { body } = req;
   const schema = Joi.object({
     title: Joi.string()
       .min(2)
@@ -35,7 +33,7 @@ const validateAddData = (req, res, next) => {
       .required(),
 
   });
-  return checkJoiError(req, res, next, schema);
+  return checkJoiError(res, next, body, schema);
 };
 
 module.exports = {

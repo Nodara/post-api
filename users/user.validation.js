@@ -2,6 +2,8 @@ const joi = require('joi');
 const { checkJoiError } = require('../util/error.joi');
 
 const validateLogin = (req, res, next) => {
+  const { body } = req;
+
   const schema = joi.object().keys({
     email: joi.string()
       .email()
@@ -10,10 +12,12 @@ const validateLogin = (req, res, next) => {
       .min(8)
       .max(40),
   });
-  return checkJoiError(req, res, next, schema);
+  return checkJoiError(res, next, body, schema);
 };
 
 const validateRegistration = (req, res, next) => {
+  const { body } = req;
+
   const schema = joi.object().keys({
     firstname: joi.string()
       .min(2)
@@ -37,7 +41,7 @@ const validateRegistration = (req, res, next) => {
 
   });
 
-  return checkJoiError(req, res, next, schema);
+  return checkJoiError(res, next, body, schema);
 };
 
 module.exports = {

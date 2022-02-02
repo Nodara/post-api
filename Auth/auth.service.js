@@ -53,7 +53,7 @@ const registerUser = async (req, res) => {
     });
     return res.send(StatusCodes.OK);
   } catch (err) {
-    signale.error('Failed to user registratoin', err);
+    signale.error('Failed to user registration', err);
     return res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
   }
 };

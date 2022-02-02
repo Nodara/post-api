@@ -1,6 +1,8 @@
 const signale = require('signale');
 const { Sequelize } = require('sequelize');
+
 const dataBaseConfig = require('../util/database');
+
 const Users = require('../users/user.model');
 const Posts = require('../posts/post.model');
 
@@ -18,10 +20,8 @@ connection
 Users.init(connection);
 Posts.init(connection);
 
-Posts.belongsTo(Users, {
-  as: 'user',
-  foreignKey: { allowNull: false },
-});
+Users.hasMany(Posts, { as: 'posts', foreignKey: { allowNull: false, name: 'userId' } });
+Posts.belongsTo(Users, { as: 'user', foreignKey: { allowNull: false } });
 
 Users.sync({ force: false })
   .catch((error) => (error));

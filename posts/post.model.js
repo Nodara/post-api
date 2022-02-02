@@ -23,6 +23,10 @@ class Posts extends Model {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
+      deletedAt: {
+        type: DataTypes.DATE,
+        allowNull: true,
+      },
     }, {
       timestamps: true,
       sequelize: connection,

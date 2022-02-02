@@ -1,5 +1,4 @@
-const { StatusCodes } = require('http-status-codes');
-const signale = require('signale');
+const errorHandler = require('../util/errorHandling/errors');
 const PostService = require('./post.service');
 
 const addPost = async (req, res) => {
@@ -14,8 +13,7 @@ const addPost = async (req, res) => {
     });
     return res.json({ id });
   } catch (error) {
-    signale.error('Error in addPost : ', error);
-    return res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
+    return errorHandler(error, res);
   }
 };
 
@@ -41,8 +39,7 @@ const getPost = async (req, res) => {
 
     return res.json({ data });
   } catch (error) {
-    signale.error('Error in getPost : ', error);
-    return res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
+    return errorHandler(error, res);
   }
 };
 
@@ -55,8 +52,7 @@ const deletePost = async (req, res) => {
 
     return res.json({ message });
   } catch (error) {
-    signale.error('Error in deletePost : ', error);
-    return res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
+    return errorHandler(error, res);
   }
 };
 
@@ -76,8 +72,7 @@ const updatePost = async (req, res) => {
 
     return res.json({ message });
   } catch (error) {
-    signale.error('Error in updatePost : ', error);
-    return res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
+    return errorHandler(error, res);
   }
 };
 

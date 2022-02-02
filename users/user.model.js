@@ -29,6 +29,10 @@ class Users extends Model {
           type: DataTypes.STRING,
           allowNull: false,
         },
+        deletedAt: {
+          type: DataTypes.DATE,
+          allowNull: true,
+        },
       },
       {
         sequelize: connection,

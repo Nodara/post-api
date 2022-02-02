@@ -5,6 +5,10 @@ const Users = require('../users/user.model');
 
 const PostConstants = require('./post.constants');
 
+const {
+  InternalServerException,
+} = require('../util/errorHandling/errors');
+
 const createPost = ({
   userId,
   title,
@@ -53,7 +57,7 @@ const deletePost = async ({ id, userId }) => {
     return PostConstants.DELETED;
   }
 
-  return PostConstants.NOT_DELETED;
+  throw new InternalServerException(PostConstants.NOT_DELETED);
 };
 
 const updatePost = async ({
@@ -70,7 +74,7 @@ const updatePost = async ({
     return PostConstants.UPDATED;
   }
 
-  return PostConstants.NOT_UPDATED;
+  throw new InternalServerException(PostConstants.NOT_UPDATED);
 };
 
 module.exports = {

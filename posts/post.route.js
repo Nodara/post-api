@@ -2,10 +2,9 @@ const router = require('express').Router();
 
 const {
   addPost,
-  showUserPosts,
-  showPostById,
   updatePost,
   deletePost,
+  getPost,
 } = require('./post.controller');
 
 const {
@@ -15,12 +14,9 @@ const {
 
 router.post('/add-post', validateAddData, addPost);
 
-router.get('/show-posts', showUserPosts);
-
-router.get('/show-post/:id', showPostById);
-
 router.put('/update-post', validateUpdate, updatePost);
 
 router.delete('/delete-post/:id', deletePost);
 
+router.get('/', getPost);
 module.exports = router;
