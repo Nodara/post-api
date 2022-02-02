@@ -20,8 +20,6 @@
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
-    "connect-redis": "^6.0.0",
-    "cookie-parser": "^1.4.5",
     "dotenv": "^10.0.0",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
@@ -35,8 +33,6 @@
     "mysql": "^2.18.1",
     "mysql2": "^2.3.0",
     "pug": "^3.0.2",
-    "redis": "^3.1.2",
-    "redis-server": "^1.2.2",
     "sequelize": "^6.7.0",
     "signale": "^1.4.0"
   }
