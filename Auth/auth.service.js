@@ -1,5 +1,7 @@
 const signale = require('signale');
 const { StatusCodes } = require('http-status-codes');
+const { createToken } = require('./auth.utils');
+
 const User = require('../users/user.model');
 
 const logInUser = async (req, res) => {
@@ -12,14 +14,15 @@ const logInUser = async (req, res) => {
     if (!user) {
       return res.status(StatusCodes.NOT_FOUND).send('Email/Password incorrect');
     }
+
     const isMatch = await user.isValidPassword(password);
 
     if (!isMatch) {
       return res.status(StatusCodes.NOT_FOUND).send('Email/Password incorrect');
     }
-    req.session.userId = user.id;
-    // eslint-disable-next-line padded-blocks
-    return res.json({ id: user.id });
+    // create jwt token that will be expired in  x milliseconds
+    const token = await createToken(user.id, 1000000);
+    return res.json({ id: user.id, token });
   } catch (error) {
     signale.error('Failed to login user ', error);
     return res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
@@ -38,7 +41,7 @@ const registerUser = async (req, res) => {
     const user = await User.findOne({ where: { email } });
 
     if (user) {
-      return res.send('AccountsalreadyExist');
+      return res.send('Account already Exist');
     }
 
     // Create user's data
@@ -54,7 +57,6 @@ const registerUser = async (req, res) => {
     return res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
   }
 };
-
 module.exports = {
   registerUser,
   logInUser,

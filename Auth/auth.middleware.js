@@ -20,7 +20,7 @@ const requireAuth = async (req, res, next) => {
 
     return next();
   } catch (err) {
-    signale.error('Failed in auth', err);
+    signale.error('Failed to user registration', err);
     return res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
   }
 };
