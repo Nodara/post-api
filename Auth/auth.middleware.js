@@ -13,7 +13,7 @@ const requireAuth = async (req, res, next) => {
       return res.sendStatus(StatusCodes.UNAUTHORIZED);
     }
   } catch (err) {
-    signale.error('Failed to user registratoin', err);
+    signale.error('Failed to user registration', err);
     return res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
   }
 };
